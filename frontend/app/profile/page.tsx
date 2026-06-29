@@ -8,7 +8,7 @@ import { Card, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { saveProfile } from "@/lib/api";
+import { fetchProfile, saveProfile } from "@/lib/api";
 
 function splitList(value: string) {
   return value
@@ -80,7 +80,7 @@ function FieldShell({
   return (
     <label className="space-y-2">
       <div>
-        <p className="text-lg font-semibold text-foreground">{label}</p>
+        <p className="text-base font-semibold text-foreground sm:text-lg">{label}</p>
         {helper ? <p className="text-sm text-muted-foreground">{helper}</p> : null}
       </div>
       {children}
@@ -131,6 +131,7 @@ function ChoicePills({
 export default function ProfilePage() {
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
+  const [loaded, setLoaded] = useState(false);
   const [isPending, startTransition] = useTransition();
   const [status, setStatus] = useState("");
   const [customCuisineInput, setCustomCuisineInput] = useState("");
@@ -141,6 +142,23 @@ export default function ProfilePage() {
 
   useEffect(() => {
     setMounted(true);
+    void (async () => {
+      const savedProfile = await fetchProfile();
+      if (savedProfile) {
+        setForm({
+          ...emptyProfile,
+          ...savedProfile,
+          allergies: savedProfile.allergies ?? [],
+          disliked_foods: savedProfile.disliked_foods ?? [],
+          preferred_dining_styles: savedProfile.preferred_dining_styles ?? [],
+          preferred_cuisines: savedProfile.preferred_cuisines ?? []
+        });
+        setAllergiesText((savedProfile.allergies ?? []).join(", "));
+        setDislikedFoodsText((savedProfile.disliked_foods ?? []).join(", "));
+        setStatus("Loaded your saved profile.");
+      }
+      setLoaded(true);
+    })();
   }, []);
 
   function toggleCuisine(value: string) {
@@ -161,15 +179,15 @@ export default function ProfilePage() {
     }));
   }
 
-  if (!mounted) {
-    return <main className="mx-auto max-w-6xl px-4 py-10 md:px-6">Loading profile...</main>;
+  if (!mounted || !loaded) {
+    return <main className="mx-auto max-w-6xl px-3 py-6 sm:px-4 sm:py-10 md:px-6">Loading profile...</main>;
   }
 
   return (
-    <main className="mx-auto max-w-6xl px-4 py-10 md:px-6">
-      <Card className="p-8 md:p-10">
+    <main className="mx-auto max-w-6xl px-3 py-6 sm:px-4 sm:py-10 md:px-6">
+      <Card className="p-5 sm:p-8 md:p-10">
         <p className="text-sm font-semibold uppercase tracking-[0.24em] text-muted-foreground">Step 1: profile setup</p>
-        <CardTitle className="mt-3 text-4xl md:text-5xl">Tell PlateWise what matters before menus come in</CardTitle>
+        <CardTitle className="mt-3 text-3xl sm:text-4xl md:text-5xl">Tell PlateWise what matters before menus come in</CardTitle>
 
         <div className="mt-10 space-y-10">
           <section>
@@ -408,16 +426,24 @@ export default function ProfilePage() {
             className="h-14 px-6 text-base md:text-lg"
             onClick={() =>
               startTransition(async () => {
-                const saved = await saveProfile({
-                  ...form,
-                  allergies: splitList(allergiesText),
-                  disliked_foods: splitList(dislikedFoodsText)
-                });
-                setForm(saved);
-                setAllergiesText(saved.allergies.join(", "));
-                setDislikedFoodsText(saved.disliked_foods.join(", "));
-                setStatus("Profile saved.");
-                router.push("/login");
+                try {
+                  const saved = await saveProfile({
+                    ...form,
+                    allergies: splitList(allergiesText),
+                    disliked_foods: splitList(dislikedFoodsText)
+                  });
+                  setForm(saved);
+                  setAllergiesText(saved.allergies.join(", "));
+                  setDislikedFoodsText(saved.disliked_foods.join(", "));
+                  setStatus("Profile saved.");
+                  router.push("/dashboard");
+                } catch (error) {
+                  setStatus(
+                    error instanceof Error
+                      ? error.message
+                      : "Profile could not be saved. Make sure you are logged in."
+                  );
+                }
               })
             }
           >

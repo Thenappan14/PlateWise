@@ -44,51 +44,84 @@ Recommendations are based on estimated nutrition and provided profile informatio
 - Ingestion: local PDF text extraction, OCR for images and scanned PDFs, and website-to-menu structuring
 - Recommendations: OpenAI-powered ranking and nutrition estimation based only on the uploaded or scraped menu content and the user profile
 
-## Backend setup
+## Backend Setup
 
-```bash
-cd backend
-python -m venv .venv
-.venv\Scripts\activate
-pip install -r requirements.txt
+Run these from PowerShell:
+
+```powershell
+cd C:\Users\Projects\HealthyBite\backend
+py -3 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
 copy .env.example .env
-python -m app.init_db
-uvicorn app.main:app --reload
 ```
 
-API runs at `http://localhost:8000`, Swagger at `http://localhost:8000/docs`.
+Then edit [backend/.env](/c:/Users/Projects/HealthyBite/backend/.env) and set:
+
+```env
+MONGODB_URL=mongodb://localhost:27017
+MONGODB_DB_NAME=platewise
+OPENAI_API_KEY=your_openai_key_here
+OPENAI_MENU_MODEL=gpt-4.1-mini
+OPENAI_RECOMMENDATION_MODEL=gpt-4.1-mini
+```
+
+Initialize the MongoDB collections and verify OpenAI:
+
+```powershell
+.\.venv\Scripts\python.exe -m app.init_db
+.\.venv\Scripts\python.exe scripts\openai_smoke_test.py
+```
+
+Start the backend:
+
+```powershell
+.\.venv\Scripts\python.exe -m uvicorn app.main:app --reload
+```
+
+API runs at `http://localhost:8000`, Swagger at `http://localhost:8000/docs`, and health check at `http://localhost:8000/health`.
 
 The backend expects MongoDB to be available at the `MONGODB_URL` in [backend/.env.example](/c:/Users/Projects/HealthyBite/backend/.env.example). The default is `mongodb://localhost:27017` with database name `platewise`.
 For image OCR and scanned PDFs, install Tesseract OCR locally. On Windows scanned-PDF conversion also needs Poppler for `pdf2image`.
-Set `OPENAI_API_KEY` in [backend/.env.example](/c:/Users/Projects/HealthyBite/backend/.env.example) to enable menu analysis and recommendations.
+Set `OPENAI_API_KEY` in [backend/.env](/c:/Users/Projects/HealthyBite/backend/.env) to enable menu analysis and recommendations. Do not commit real API keys.
 
-## Frontend setup
+## Frontend Setup
 
-```bash
-cd frontend
-npm install
+```powershell
+cd C:\Users\Projects\HealthyBite\frontend
+cmd /c npm install
 copy .env.example .env.local
-npm run dev
+```
+
+Ensure [frontend/.env.local](/c:/Users/Projects/HealthyBite/frontend/.env.local) contains:
+
+```env
+NEXT_PUBLIC_API_BASE_URL=http://localhost:8000/api
+```
+
+Start the frontend:
+
+```powershell
+cmd /c npm run dev
 ```
 
 Frontend runs at `http://localhost:3000`.
 
-## Daily run commands
+## Daily Run Commands
 
 Use 2 terminals.
 
 Backend terminal from [backend](/c:/Users/Projects/HealthyBite/backend):
 
 ```powershell
-cd c:\Users\Projects\HealthyBite\backend
+cd C:\Users\Projects\HealthyBite\backend
 .\.venv\Scripts\python.exe -m uvicorn app.main:app --reload
 ```
 
 Frontend terminal from [frontend](/c:/Users/Projects/HealthyBite/frontend):
 
 ```powershell
-cd c:\Users\Projects\HealthyBite\frontend
-npm run dev
+cd C:\Users\Projects\HealthyBite\frontend
+cmd /c npm run dev
 ```
 
 If dependencies are not installed yet, run these once first.
@@ -96,15 +129,16 @@ If dependencies are not installed yet, run these once first.
 Backend first-time install:
 
 ```powershell
-cd c:\Users\Projects\HealthyBite\backend
+cd C:\Users\Projects\HealthyBite\backend
+py -3 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
 ```
 
 Frontend first-time install:
 
 ```powershell
-cd c:\Users\Projects\HealthyBite\frontend
-npm install
+cd C:\Users\Projects\HealthyBite\frontend
+cmd /c npm install
 ```
 
 Required backend env values in [backend/.env](/c:/Users/Projects/HealthyBite/backend/.env):
@@ -113,12 +147,32 @@ Required backend env values in [backend/.env](/c:/Users/Projects/HealthyBite/bac
 MONGODB_URL=mongodb://localhost:27017
 MONGODB_DB_NAME=platewise
 OPENAI_API_KEY=your_openai_key_here
+OPENAI_MENU_MODEL=gpt-4.1-mini
+OPENAI_RECOMMENDATION_MODEL=gpt-4.1-mini
 ```
 
 Required frontend env value in [frontend/.env.local](/c:/Users/Projects/HealthyBite/frontend/.env.local):
 
 ```env
 NEXT_PUBLIC_API_BASE_URL=http://localhost:8000/api
+```
+
+## Local Verification Commands
+
+Backend compile and health check:
+
+```powershell
+cd C:\Users\Projects\HealthyBite\backend
+.\.venv\Scripts\python.exe -m compileall app scripts
+.\.venv\Scripts\python.exe -c "from fastapi.testclient import TestClient; from app.main import app; response = TestClient(app).get('/health'); print(response.status_code, response.json())"
+.\.venv\Scripts\python.exe scripts\openai_smoke_test.py
+```
+
+Frontend production build:
+
+```powershell
+cd C:\Users\Projects\HealthyBite\frontend
+cmd /c npm run build
 ```
 
 ## Key product flows

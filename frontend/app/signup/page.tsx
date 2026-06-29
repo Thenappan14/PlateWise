@@ -17,10 +17,10 @@ export default function SignUpPage() {
   const [isPending, startTransition] = useTransition();
 
   return (
-    <main className="mx-auto max-w-2xl px-4 py-10 md:px-6">
-      <Card className="mx-auto max-w-2xl p-8 md:p-10">
+    <main className="mx-auto max-w-2xl px-3 py-6 sm:px-4 sm:py-10 md:px-6">
+      <Card className="mx-auto max-w-2xl p-5 sm:p-8 md:p-10">
         <p className="text-sm font-semibold uppercase tracking-[0.24em] text-muted-foreground">Start here</p>
-        <CardTitle className="mt-3 text-4xl md:text-5xl">Create your PlateWise account</CardTitle>
+        <CardTitle className="mt-3 text-3xl sm:text-4xl md:text-5xl">Create your PlateWise account</CardTitle>
         <CardDescription className="mt-4 text-lg md:text-xl">
           Create a profile first, then upload a menu or paste a restaurant URL to get ranked dishes.
         </CardDescription>

@@ -24,7 +24,7 @@ export default function UploadPage() {
           label="Turning your menu into a personalized plate recommendation..."
         />
       ) : null}
-      <main className="mx-auto max-w-6xl px-4 py-10 md:px-6">
+      <main className="mx-auto max-w-6xl px-3 py-6 sm:px-4 sm:py-10 md:px-6">
         <div className="space-y-6">
           <div className="flex items-center justify-between gap-4">
             <h1 className="font-display text-3xl leading-none text-foreground md:text-5xl">
@@ -35,7 +35,7 @@ export default function UploadPage() {
           <div className="grid gap-6 lg:grid-cols-[1fr_0.8fr]">
             <Card className="bg-white/90">
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-muted-foreground">Upload menu</p>
-              <CardTitle className="mt-3 text-4xl">Drop a screenshot, photo, or PDF</CardTitle>
+              <CardTitle className="mt-3 text-3xl sm:text-4xl">Drop a screenshot, photo, or PDF</CardTitle>
               <CardDescription className="mt-3 text-lg">
                 PlateWise extracts the menu text, structures dishes, estimates nutrition, and scores the best options for your profile.
               </CardDescription>

@@ -94,14 +94,10 @@ export async function fetchProfile(): Promise<Profile | null> {
 }
 
 export async function saveProfile(profile: Profile): Promise<Profile> {
-  try {
-    return await request<Profile>("/profile", {
-      method: "PUT",
-      body: JSON.stringify(profile)
-    });
-  } catch {
-    return profile;
-  }
+  return await request<Profile>("/profile", {
+    method: "PUT",
+    body: JSON.stringify(profile)
+  });
 }
 
 export async function ingestRestaurantUrl(url: string): Promise<MenuResponse> {

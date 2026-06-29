@@ -16,7 +16,7 @@ export function DishCard({
     <Card className={tone === "danger" ? "border-rose-200 bg-rose-50/80" : ""}>
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <CardTitle className="text-2xl md:text-3xl">{dish.dish_name}</CardTitle>
+          <CardTitle className="text-xl sm:text-2xl md:text-3xl">{dish.dish_name}</CardTitle>
           <CardDescription className="mt-1 text-base">{dish.category ?? "Menu item"}</CardDescription>
         </div>
         <ScoreBadge score={dish.match_score} />
@@ -25,7 +25,7 @@ export function DishCard({
       <div className="mt-4 grid gap-3 sm:grid-cols-2">
         <div className="rounded-2xl bg-stone-50 p-3">
           <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Exact menu name</p>
-          <p className="mt-1 text-lg text-foreground">{dish.dish_name}</p>
+          <p className="mt-1 break-words text-base text-foreground sm:text-lg">{dish.dish_name}</p>
           {dish.source_text ? (
             <p className="mt-2 text-sm text-muted-foreground">{dish.source_text}</p>
           ) : null}
@@ -53,7 +53,7 @@ export function DishCard({
       <div className="mt-5 grid gap-3 text-base text-muted-foreground sm:grid-cols-3">
         <div className="rounded-2xl bg-white/80 p-3">
           <p className="text-xs uppercase tracking-[0.2em]">Calories</p>
-          <p className="mt-1 text-2xl text-foreground">{dish.nutrition_estimate.calories ?? "--"}</p>
+          <p className="mt-1 text-xl text-foreground sm:text-2xl">{dish.nutrition_estimate.calories ?? "--"}</p>
         </div>
         <div className="rounded-2xl bg-white/80 p-3">
           <p className="text-xs uppercase tracking-[0.2em]">Protein</p>
