@@ -26,16 +26,16 @@ const features = [
 
 export default function HomePage() {
   return (
-    <main className="mx-auto max-w-7xl px-4 py-10 md:px-6 md:py-16">
-      <section className="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
-        <div className="space-y-7">
-          <p className="inline-flex rounded-full bg-white/80 px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.24em] text-muted-foreground">
+    <main className="mx-auto max-w-7xl px-3 py-6 sm:px-4 sm:py-10 md:px-6 md:py-16">
+      <section className="grid items-center gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-10">
+        <div className="space-y-5 md:space-y-7">
+          <p className="inline-flex rounded-full bg-white/80 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground sm:px-5 sm:py-2.5 sm:text-sm sm:tracking-[0.24em]">
             Profile-first food guidance
           </p>
-          <h1 className="max-w-4xl font-display text-6xl leading-[1.05] text-foreground md:text-8xl">
+          <h1 className="max-w-4xl font-display text-4xl leading-[1.08] text-foreground sm:text-5xl md:text-8xl">
             Build your food profile first, then let PlateWise guide every restaurant choice.
           </h1>
-          <p className="max-w-3xl text-2xl leading-relaxed text-muted-foreground">
+          <p className="max-w-3xl text-lg leading-relaxed text-muted-foreground sm:text-xl md:text-2xl">
             New users start by choosing goals, dietary restrictions, allergies, dislikes, spice comfort, budget, and favorite cuisines. After that, PlateWise analyzes menus and restaurant links with much smarter recommendations.
           </p>
           <div className="flex flex-wrap gap-4">
@@ -50,15 +50,15 @@ export default function HomePage() {
             </Button>
           </div>
           <div className="grid gap-4 md:grid-cols-3">
-            <div className="rounded-[28px] bg-white/85 p-5">
+            <div className="rounded-[20px] bg-white/85 p-4 sm:rounded-[28px] sm:p-5">
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">Step 1</p>
               <p className="mt-3 text-xl font-semibold text-foreground">Tell us your goal and preferences</p>
             </div>
-            <div className="rounded-[28px] bg-white/85 p-5">
+            <div className="rounded-[20px] bg-white/85 p-4 sm:rounded-[28px] sm:p-5">
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">Step 2</p>
               <p className="mt-3 text-xl font-semibold text-foreground">Upload a menu or paste a restaurant link</p>
             </div>
-            <div className="rounded-[28px] bg-white/85 p-5">
+            <div className="rounded-[20px] bg-white/85 p-4 sm:rounded-[28px] sm:p-5">
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">Step 3</p>
               <p className="mt-3 text-xl font-semibold text-foreground">See recommended dishes and warnings</p>
             </div>
@@ -69,15 +69,17 @@ export default function HomePage() {
         <div className="space-y-6">
           <Card className="overflow-hidden bg-white/85">
             <div className="space-y-5">
-              <div className="flex items-center justify-between gap-4 rounded-[24px] bg-secondary/60 p-6">
+              <div className="flex items-center justify-between gap-4 rounded-[20px] bg-secondary/60 p-4 sm:rounded-[24px] sm:p-6">
                 <div>
                   <p className="text-sm font-semibold uppercase tracking-[0.24em] text-muted-foreground">Your healthy guides</p>
-                  <h2 className="mt-3 font-display text-4xl">Wise owls, clear choices</h2>
+                  <h2 className="mt-3 font-display text-3xl sm:text-4xl">Wise owls, clear choices</h2>
                   <p className="mt-3 text-lg text-muted-foreground">
                     A warmer onboarding flow that nudges people to set their needs first and explore menus second.
                   </p>
                 </div>
-                <OwlCluster />
+                <div className="hidden sm:block">
+                  <OwlCluster />
+                </div>
               </div>
               <div className="grid gap-4 sm:grid-cols-3">
                 <div className="rounded-3xl bg-white p-5">

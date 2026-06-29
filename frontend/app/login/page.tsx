@@ -17,10 +17,10 @@ export default function LoginPage() {
   const [isPending, startTransition] = useTransition();
 
   return (
-    <main className="mx-auto max-w-2xl px-4 py-10 md:px-6">
-      <Card className="mx-auto max-w-2xl p-8 md:p-10">
+    <main className="mx-auto max-w-2xl px-3 py-6 sm:px-4 sm:py-10 md:px-6">
+      <Card className="mx-auto max-w-2xl p-5 sm:p-8 md:p-10">
         <p className="text-sm font-semibold uppercase tracking-[0.24em] text-muted-foreground">Welcome back</p>
-        <CardTitle className="mt-3 text-4xl md:text-5xl">Log in to PlateWise</CardTitle>
+        <CardTitle className="mt-3 text-3xl sm:text-4xl md:text-5xl">Log in to PlateWise</CardTitle>
         <CardDescription className="mt-4 text-lg md:text-xl">
           Sign in to continue with your saved profile, menu analysis, and recommendation history.
         </CardDescription>

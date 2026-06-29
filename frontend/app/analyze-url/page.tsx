@@ -17,7 +17,7 @@ export default function AnalyzeUrlPage() {
   const [isPending, startTransition] = useTransition();
 
   return (
-    <main className="mx-auto max-w-5xl px-4 py-10 md:px-6">
+    <main className="mx-auto max-w-5xl px-3 py-6 sm:px-4 sm:py-10 md:px-6">
       <Card>
         <p className="text-xs font-semibold uppercase tracking-[0.24em] text-muted-foreground">Restaurant URL analysis</p>
         <CardTitle className="mt-3">Paste a restaurant website URL</CardTitle>
