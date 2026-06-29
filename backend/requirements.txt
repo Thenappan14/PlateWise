@@ -1,0 +1,17 @@
+fastapi==0.116.0
+uvicorn[standard]==0.35.0
+pydantic[email]==2.11.7
+pydantic-settings==2.10.1
+python-multipart==0.0.20
+passlib[bcrypt]==1.7.4
+python-jose[cryptography]==3.5.0
+beautifulsoup4==4.13.4
+httpx==0.28.1
+lxml==5.4.0
+python-dotenv==1.1.1
+pymongo==4.13.2
+pypdf==5.9.0
+pillow==11.3.0
+pytesseract==0.3.13
+pdf2image==1.17.0
+openai>=1.99.0,<3.0.0
